@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+const restaurants : String [] = ["McDonald's", "Freshii", "Chipotle"]
+const groceryStores = ["Whole Foods", "IGA", "TNT", "Superstore", "Walmart"]
+---
+
+<Layout title="map">
+    <div class="flex flex-col w-full h-screen justify-center items-center pt-40 bg-background">
+        <iframe
+        class="rounded-md w-96 h-96"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.739614357745!2d-122.99656412349601!3d49.22446507487495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5486765b1b209b7b%3A0x68bb56d94f550bc3!2s6538%20Nelson%20Ave%2C%20Burnaby%2C%20BC%20V5H%200G5!5e0!3m2!1sen!2sca!4v1716063184229!5m2!1sen!2sca"
+
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="flex gap-8 flex-col sm:flex-row">
+              <div class="flex flex-col">
+                <h3 class="text-3xl font-bold tracking-tighter pt-4">Restaurants nearby</h3>
+                <ul class="py-4">
+                    {
+                        restaurants.map((item) => (
+                            <li class="py-4 border-t">{item}</li>
+                        ))
+                      }
+                </ul>
+          </div>
+          <div>
+              <h3 class="text-3xl font-bold tracking-tighter pt-4">Grocery Stores nearby</h3>
+                <ul class="py-4">
+                    {
+                        groceryStores.map((item) => (
+                            <li class="py-4 border-t">{item}</li>
+                        ))
+                      }
+                </ul>
+          </div>
+        </div>
+      </div>
+
+</Layout>
+

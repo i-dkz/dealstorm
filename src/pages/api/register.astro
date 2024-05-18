@@ -1,0 +1,15 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Login">
+  <main class="flex flex-col justify-center items-center h-screen bg-background">
+    <form action="/api/auth/register" method="POST" class="flex flex-col bg-card h-auto w-auto rounded-md p-4">
+      <label for="">Email</label>
+      <input type="text" class="rounded-md" />
+      <label for="">Password</label>
+      <input type="password" class="rounded-md" />
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </main>
+</Layout>
