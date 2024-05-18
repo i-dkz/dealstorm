@@ -10,6 +10,9 @@
     --modal-content-bg:  222.2, 0%, 100%, .6;
     --foreground: 222.2 84% 4.9%;
     
+    --btn-bg: #134e4a;
+    --btn-txt: white;
+
     --table: 210 40% 96.1%;
 
     --card: rgb(232, 232, 232);
@@ -55,6 +58,9 @@
     --background: rgba(9, 9, 9, 0.91);
     --modal-content-bg:  0, 0%, 10%, .6;
     --foreground: 210 40% 98%;
+
+    --btn-bg: #134e4a;
+    --btn-txt: white;
 
     --table: 222.2 84% 4.9%;
  

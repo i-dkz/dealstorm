@@ -1,18 +1,43 @@
 ---
 import { TiWeatherStormy } from "react-icons/ti";
 import { GiHamburgerMenu } from "react-icons/gi";
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+let signedIn = false;
+
+if (accessToken && refreshToken) {
+  signedIn = true;
+}
 ---
 
-<header class="flex justify-between items-center w-full h-14 bg-white px-8 fixed">
-  <div class="flex gap-2 items-center ">
-      <a href="/">
-        <TiWeatherStormy size={30}/> 
-      </a>
+<header
+  class="flex justify-between items-center w-full h-14 bg-white px-8 fixed"
+>
+  <div class="flex gap-2 items-center">
+    <a href="/">
+      <TiWeatherStormy size={30} />
+    </a>
   </div>
-  <div class="flex gap-2 items-center ">
-      <span class="invisible sm:visible"><a href="/api/login">Login</a></span>
-      <div class="visible sm:invisible">
-        <div
+  <div class="flex gap-2 items-center">
+    <span class="invisible sm:visible">
+      {
+        signedIn ? (
+          <form action="/api/auth/logout">
+            <button type="submit" class="btn">
+              Log Out
+            </button>
+          </form>
+        ) : (
+          <a href="api/login">Log In</a>
+        )
+      }</span
+    >
+    <div class="visible sm:invisible">
+      <div
         class="flex items-center text-primary w-20 gap-6 relative"
         x-data="{ switchOn: $persist(false) }"
       >
@@ -34,7 +59,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
             y1="6"
             y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
         >
-      
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -50,12 +75,11 @@ import { GiHamburgerMenu } from "react-icons/gi";
           x-show="!switchOn"
           x-transition:enter="transition duration-700"
           x-transition:enter-start="-rotate-90 scale-0"
-          
           x-cloak
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
-      
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -71,7 +95,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
           x-show="switchOn"
           x-transition:enter="transition duration-700"
           x-transition:enter-start="rotate-90 scale-0"
-      
           x-cloak
         >
           <>
@@ -87,8 +110,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
           </>
         </svg>
       </div>
-      
-      </div>
+    </div>
   </div>
-
 </header>
