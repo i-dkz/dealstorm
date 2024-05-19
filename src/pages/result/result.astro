@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
 ---
 
 <Layout title="Result | DealStorm">
@@ -9,16 +10,50 @@ import Layout from "../../layouts/Layout.astro";
         <h1 class="text-center text-4xl tracking-tighter font-bold py-5 pt-20">
             Result
         </h1>
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5211.249407264941!2d-122.99935362042449!3d49.226644138507716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5486765bdb5d5b3f%3A0x68dafb58b8f7deb!2sT%26T%20Supermarket!5e0!3m2!1sen!2sca!4v1716075725426!5m2!1sen!2sca"
-            width="300"
-            height="350"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            class="mx-auto"></iframe>
 
+         <!-- Map Container -->
+     
+         <script src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.GOOGLE_MAP_API}&callback=initMap`} async defer></script>
+
+        <script async defer>
+            function initMap() {       
+                const addresses = [
+                    "15399 Guildford dr, Surrey, V3R7C6",
+                    "3700 Willingdon Ave, Burnaby, BC V5G 3H2",
+                    "8888 University Dr W, Burnaby, BC V5A 1S6"
+                ];
+      
+                const geocoder = new google.maps.Geocoder();
+
+                // Geocode the first address to get its location
+                geocoder.geocode({ address: addresses[0] }, (results, status) => {
+                    if (status === "OK") {
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 10, // Zoom level adjusted to fit the marker
+                            center: results[0].geometry.location // Center of the first address
+                        });
+
+                        // Place markers for all addresses
+                        addresses.forEach(address => {
+                            geocoder.geocode({ address: address }, (results, status) => {
+                                if (status === "OK") {
+                                    new google.maps.Marker({
+                                        position: results[0].geometry.location,
+                                        map: map,
+                                        title: address
+                                    });
+                                } else {
+                                    console.error("Geocode was not successful for the following reason: " + status);
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+        </script>
+
+        <div id="map" style="width: 600px; height: 450px;" class="mx-auto"></div>
+        
         <div>
             <div
                 class="py-2 px-5 my-2 bg-green-500 text-white w-[250px] mx-auto rounded-3xl"
