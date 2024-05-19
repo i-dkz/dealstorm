@@ -1,0 +1,10 @@
+---
+import Tag from "../../../components/Tag.astro";
+
+export const partial = true;
+
+const selected = Astro.url.searchParams.get("selected") || "";
+
+---
+
+<Tag title={selected}/>
