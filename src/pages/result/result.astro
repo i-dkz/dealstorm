@@ -6,7 +6,7 @@ import Layout from "../../layouts/Layout.astro";
     <main
         class="flex-1 flex-col justify-center items-center h-screen bg-background"
     >
-        <h1 class="flex text-8xl tracking-tighter font-bold py-5 pt-20">
+        <h1 class="text-center text-4xl tracking-tighter font-bold py-5 pt-20">
             Result
         </h1>
         <iframe
@@ -20,8 +20,24 @@ import Layout from "../../layouts/Layout.astro";
             class="mx-auto"></iframe>
 
         <div>
-            <h2 class="flex text-2xl tracking-tighter">T&T Pork Chop (1lb)</h2>
-            <h2 class="flex text-2xl tracking-tighter">T&T Pork Chop (1lb)</h2>
+            <div
+                class="py-2 px-5 my-2 bg-green-500 text-white w-[250px] mx-auto rounded-3xl"
+            >
+                <div class="flex text-2xl tracking-tighter">T&T</div>
+                <div>Potatoes (1lb)</div>
+            </div>
+            <div
+                class="py-2 px-5 my-2 bg-green-500 text-white w-[250px] mx-auto rounded-3xl"
+            >
+                <div class="flex text-2xl tracking-tighter">T&T</div>
+                <div>Carrots (1lb)</div>
+            </div>
+            <div
+                class="py-2 px-5 my-2 bg-orange-400 text-white w-[250px] mx-auto rounded-3xl"
+            >
+                <div class="flex text-2xl tracking-tighter">T&T</div>
+                <div>Carrots (1lb)</div>
+            </div>
         </div>
     </main>
 </Layout>
