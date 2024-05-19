@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 
 import { supabase } from "../lib/supabase";
 
@@ -9,66 +9,93 @@ const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 if (!accessToken || !refreshToken) {
-  return redirect("/");
+	return redirect("/");
 }
 
 const { data, error } = await supabase.auth.setSession({
-  refresh_token: refreshToken.value,
-  access_token: accessToken.value,
+	refresh_token: refreshToken.value,
+	access_token: accessToken.value,
 });
 
 if (error) {
-  cookies.delete("sb-access-token", {
-    path: "/",
-  });
-  cookies.delete("sb-refresh-token", {
-    path: "/",
-  });
+	cookies.delete("sb-access-token", {
+		path: "/",
+	});
+	cookies.delete("sb-refresh-token", {
+		path: "/",
+	});
 
-  return redirect("/");
+	return redirect("/");
 }
 
 const email = data?.user?.email;
 
-const restaurants : String [] = ["McDonald's", "Freshii", "Chipotle"]
-const groceryStores = ["Whole Foods", "IGA", "TNT", "Superstore", "Walmart"]
-
-
+const restaurants: String[] = ["Freshii", "Chipotle", "McDonald's"];
+const groceryStores = ["Whole Foods", "IGA", "TNT", "Superstore", "Walmart"];
 ---
 
-<Layout title="map">
-    <div class="flex flex-col w-full h-screen justify-center items-center pt-40 bg-background">
-        <iframe
-        class="rounded-md w-96 h-96"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.739614357745!2d-122.99656412349601!3d49.22446507487495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5486765b1b209b7b%3A0x68bb56d94f550bc3!2s6538%20Nelson%20Ave%2C%20Burnaby%2C%20BC%20V5H%200G5!5e0!3m2!1sen!2sca!4v1716063184229!5m2!1sen!2sca"
-
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <div class="flex gap-8 flex-col sm:flex-row">
-              <div class="flex flex-col">
-                <h3 class="text-3xl font-bold tracking-tighter pt-4">Restaurants nearby</h3>
-                <ul class="py-4">
-                    {
-                        restaurants.map((item) => (
-                            <li class="py-4 border-t">{item}</li>
-                        ))
-                      }
-                </ul>
-          </div>
-          <div>
-              <h3 class="text-3xl font-bold tracking-tighter pt-4">Grocery Stores nearby</h3>
-                <ul class="py-4">
-                    {
-                        groceryStores.map((item) => (
-                            <li class="py-4 border-t">{item}</li>
-                        ))
-                      }
-                </ul>
-          </div>
-        </div>
-      </div>
-
+<Layout title="Dashboard | DealStorm">
+	<div
+		class="flex flex-col w-full min-h-screen justify-center items-center pt-[200px] bg-background overflow-y-auto"
+	>
+		<h2 class="text-2xl font-bold">
+			My weekly budget:<span class="text-teal-600">$75</span>
+		</h2>
+		<div class="w-[80%] bg-gray-400 py-1 my-2 rounded-full"></div>
+		<div class="font-bold text-gray-500">
+			0/<span class="text-teal-600">$75</span>
+		</div>
+		<input
+			type="text"
+			placeholder="Search for an ingredient!"
+			class="py-2 my-7 px-2 rounded-xl outline-none w-[90%] text-xl text-center"
+		/>
+		<!-- <iframe
+      class="rounded-md w-[300px] h-[300px]"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.739614357745!2d-122.99656412349601!3d49.22446507487495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5486765b1b209b7b%3A0x68bb56d94f550bc3!2s6538%20Nelson%20Ave%2C%20Burnaby%2C%20BC%20V5H%200G5!5e0!3m2!1sen!2sca!4v1716063184229!5m2!1sen!2sca"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+		<div class="flex gap-8 flex-col sm:flex-row">
+			<div>
+				<h3 class="text-3xl font-bold tracking-tighter">
+					Grocery Stores nearby
+				</h3>
+				<ul class="py-4">
+					{
+						groceryStores.map((item) => (
+							<li class="py-4 border-t flex">
+								<img
+									src={`/${item}.svg`}
+									alt=""
+									class="w-[50px]"
+								/>{" "}
+								<div class="pl-2 ">{item}</div>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+			<div class="flex flex-col">
+				<h3 class="text-3xl font-bold tracking-tighter">
+					Restaurants nearby
+				</h3>
+				<ul class="py-4">
+					{
+						restaurants.map((item) => (
+							<li class="py-4 border-t flex">
+								<img
+									src={`/${item}.svg`}
+									alt=""
+									class="w-[50px]"
+								/>{" "}
+								<div class="pl-2 ">{item}</div>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
 </Layout>
-
