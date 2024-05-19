@@ -30,19 +30,25 @@ if (error) {
 
 const email = data?.user?.email;
 
-const restaurants: String[] = ["McDonald's", "Freshii", "Chipotle"];
+const restaurants: String[] = ["Freshii", "Chipotle", "McDonald's"];
 const groceryStores = ["Whole Foods", "IGA", "TNT", "Superstore", "Walmart"];
 ---
 
 <Layout title="Dashboard | DealStorm">
 	<div
-		class="flex flex-col w-full h-screen justify-center items-center pt-[80px] bg-background"
+		class="flex flex-col w-full min-h-screen justify-center items-center pt-[200px] bg-background overflow-y-auto"
 	>
-		<h2 class="text-4xl font-bold">dustinsux69</h2>
+		<h2 class="text-2xl font-bold">
+			My weekly budget:<span class="text-teal-600">$75</span>
+		</h2>
+		<div class="w-[80%] bg-gray-400 py-1 my-2 rounded-full"></div>
+		<div class="font-bold text-gray-500">
+			0/<span class="text-teal-600">$75</span>
+		</div>
 		<input
 			type="text"
-			placeholder="Search DealStorm"
-			class="py-2 my-2 px-2 rounded-xl outline-none"
+			placeholder="Search for an ingredient"
+			class="py-2 my-5 px-2 rounded-xl outline-none"
 		/>
 		<!-- <iframe
       class="rounded-md w-[300px] h-[300px]"
@@ -53,13 +59,20 @@ const groceryStores = ["Whole Foods", "IGA", "TNT", "Superstore", "Walmart"];
       referrerpolicy="no-referrer-when-downgrade"></iframe> -->
 		<div class="flex gap-8 flex-col sm:flex-row">
 			<div>
-				<h3 class="text-3xl font-bold tracking-tighter pt-4">
+				<h3 class="text-3xl font-bold tracking-tighter">
 					Grocery Stores nearby
 				</h3>
 				<ul class="py-4">
 					{
 						groceryStores.map((item) => (
-							<li class="py-4 border-t">{item}</li>
+							<li class="py-4 border-t flex">
+								<img
+									src={`/${item}.svg`}
+									alt=""
+									class="w-[50px]"
+								/>{" "}
+								<div class="pl-2 ">{item}</div>
+							</li>
 						))
 					}
 				</ul>
@@ -71,7 +84,14 @@ const groceryStores = ["Whole Foods", "IGA", "TNT", "Superstore", "Walmart"];
 				<ul class="py-4">
 					{
 						restaurants.map((item) => (
-							<li class="py-4 border-t">{item}</li>
+							<li class="py-4 border-t flex">
+								<img
+									src={`/${item}.svg`}
+									alt=""
+									class="w-[50px]"
+								/>{" "}
+								<div class="pl-2 ">{item}</div>
+							</li>
 						))
 					}
 				</ul>
